@@ -157,6 +157,7 @@ bool ini_save(ini* arg, const char* section, const char* key, const char* value)
 		sec->size = 1;
 		sec->entries[0].key = strdup(key);
 		sec->entries[0].value = strdup(value);
+		arg->size++;
 		return 1;
 	}
 
@@ -176,6 +177,7 @@ bool ini_save(ini* arg, const char* section, const char* key, const char* value)
 	if (!found) {
 		ent->key = strdup(key);
 		ent->value = strdup(value);
+		sec->size++;
 		return 1;
 	}
 

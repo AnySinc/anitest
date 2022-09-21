@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-#define sc_uri_malloc malloc
-#define sc_uri_free free
+#define uri_malloc malloc
+#define uri_free free
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -30,7 +30,7 @@ extern "C" {
  *
  */
 
-struct sc_uri {
+struct uri {
 	const char *str; // Full string
 	const char *scheme;
 	const char *host;
@@ -51,11 +51,11 @@ struct sc_uri {
  *
  * E.g :
  *
- * struct sc_uri* uri;
+ * struct uri* uri;
  *
- * struct sc_uri* uri;
+ * struct uri* uri;
  * uri =
- * sc_uri_create("http://user:pass@any.com:8042/over/there?name=jane#doe");
+ * uri_create("http://user:pass@any.com:8042/over/there?name=jane#doe");
  *
  * printf("%s \n", uri->str);       // prints full string.
  * printf("%s \n", uri->scheme);    // prints "http"
@@ -70,12 +70,12 @@ struct sc_uri {
  * @param str uri string
  * @return    uri, NULL on error
  */
-struct sc_uri *sc_uri_create(const char *str);
+struct uri *uri_create(const char *str);
 
 /**
  * @param uri uri
  */
-void sc_uri_destroy(struct sc_uri **uri);
+void uri_destroy(struct uri **uri);
 
 #ifdef __cplusplus
 }
@@ -91,7 +91,7 @@ void sc_uri_destroy(struct sc_uri **uri);
 #pragma warning(disable : 4996)
 #endif
 
-struct sc_uri *sc_uri_create(const char *str)
+struct uri *uri_create(const char *str)
 {
 	const char *s1 = "%.*s%.*s%.*s%.*s%.*s%.*s%.*s%.*s";
 	const char *s2 = "%.*s%c%.*s%c%.*s%c%.*s%c%.*s%c%.*s%c%.*s%c";
@@ -108,7 +108,7 @@ struct sc_uri *sc_uri_create(const char *str)
 	char *path, *query = "", *fragment = "";
 	char *ptr, *dest, *parse_end;
 	char *pos = (char *) str;
-	struct sc_uri *uri;
+	struct uri *uri;
 
 	if (str == NULL || (ptr = strstr(pos, ":")) == NULL) {
 		return NULL;
@@ -183,7 +183,7 @@ struct sc_uri *sc_uri_create(const char *str)
 	parts_len -= (query_len != 0);
 	parts_len -= (fragment_len != 0);
 
-	uri = sc_uri_malloc(sizeof(*uri) + parts_len + full_len);
+	uri = uri_malloc(sizeof(*uri) + parts_len + full_len);
 	if (uri == NULL) {
 		return NULL;
 	}
@@ -229,17 +229,17 @@ struct sc_uri *sc_uri_create(const char *str)
 	return uri;
 
 error:
-	sc_uri_free(uri);
+	uri_free(uri);
 	return NULL;
 }
 
-void sc_uri_destroy(struct sc_uri **uri)
+void uri_destroy(struct uri **uri)
 {
 	if (uri == NULL || *uri == NULL) {
 		return;
 	}
 
-	sc_uri_free(*uri);
+	uri_free(*uri);
 	*uri = NULL;
 }
 
