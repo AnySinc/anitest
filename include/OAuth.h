@@ -7,7 +7,6 @@
 #include <utils/json.h>
 #include <utils/ini.h>
 #include <utils/sorted_map.h>
-#include <utils/mutex.h>
 #include <utils/thread.h>
 #include <utils/linked_map.h>
 #include <utils/timer.h>
