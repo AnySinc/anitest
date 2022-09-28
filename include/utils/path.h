@@ -15,6 +15,7 @@ extern "C" {
 char* getexecname();
 char* getexecdir();
 char* getcurrentdir();
+char* getfullpath(const char* filename);
 void path_add(char** path, const char* dir);
 
 #ifdef __cplusplus
@@ -83,6 +84,17 @@ char* getcurrentdir() {
     char buf[FILENAME_MAX];
     getcwd(buf, FILENAME_MAX);
     return str_create(buf);
+}
+
+char* getfullpath(const char* filename) {
+    char* dir = strdup(filename);
+    if (*filename == '.') {
+        dir = getexecdir();
+        char* new_value = strdup(filename);
+        strtok(new_value, "/");
+        path_add(&dir, strtok(NULL, "/"));
+        free(new_value);
+    } return dir;
 }
 
 void path_add(char** path, const char* dir) {
