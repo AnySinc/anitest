@@ -17,6 +17,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define NUM_PARAMS 21
+
 typedef enum PARAM {
     SAVE_ON_OAUTH,
     SAVE_ON_CLOSE,
@@ -36,7 +38,9 @@ typedef enum PARAM {
     TOKEN_BEARER,
     REFRESH_TOKEN,
     CODE_CHALLENGE,
-    CODE_VERIFIER
+    CODE_VERIFIER,
+    REQUEST_QUEUE_SIZE,
+    CACHE_SIZE
 } PARAM;
 
 static const char* PARAM_STRING[] = {
@@ -58,7 +62,9 @@ static const char* PARAM_STRING[] = {
     "token_bearer",
     "refresh_token",
     "code_challenge",
-    "code_verifier"
+    "code_verifier",
+    "request_queue_size",
+    "cache_size"
 };
 
 // THE OPTIONS MAY BE CHANGED TEMPORARILY FOR A REQUEST
