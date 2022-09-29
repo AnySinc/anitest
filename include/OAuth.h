@@ -1,7 +1,7 @@
 #ifndef OAUTH_H
 #define OAUTH_H
 
-#include <utils/crypto.h>
+#include <utils/hash.h>
 #include <utils/str.h>
 #include <utils/time.h>
 #include <utils/json.h>
