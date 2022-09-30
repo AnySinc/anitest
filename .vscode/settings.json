@@ -1,0 +1,40 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "sc_uri.h": "c",
+        "str.h": "c",
+        "schemehandler.h": "c",
+        "oauth.h": "c",
+        "uri.h": "c",
+        "optional": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "array": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "variant": "c",
+        "string_view": "c",
+        "fcntl.h": "c",
+        "file.h": "c",
+        "stat.h": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/germanius/Documents/GitHub/anitest",
+            "binaryPath": "/home/germanius/Documents/GitHub/anitest/myapp",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/germanius/Documents/GitHub/anitest",
+            "binaryPath": "/home/germanius/Documents/GitHub/anitest/myapp",
+            "binaryArgs": ["-r"]
+        },
+        {
+            "cwd": "/home/germanius/Documents/GitHub/anitest",
+            "binaryPath": "/home/germanius/Documents/GitHub/anitest/myapp",
+            "binaryArgs": ["-l=anitest://oauth?code=value"]
+        }
+    ]
+}
