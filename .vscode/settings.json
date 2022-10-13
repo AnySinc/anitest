@@ -18,7 +18,10 @@
         "string_view": "c",
         "fcntl.h": "c",
         "file.h": "c",
-        "stat.h": "c"
+        "stat.h": "c",
+        "path.h": "c",
+        "sorted_map.h": "c",
+        "curl.h": "c"
     },
     "makefile.launchConfigurations": [
         {

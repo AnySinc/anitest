@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Sep 30 13:33:31 2022
+# Make data base, printed on Thu Oct 13 22:37:15 2022
 
 # Variables
 
@@ -55,11 +55,11 @@ XDG_DATA_DIRS = /home/germanius/.local/share/flatpak/exports/share:/var/lib/flat
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/germanius/.config/Code - OSS/CachedData/74b1f979648cc44d385a2286793c226e611f59e7
+VSCODE_CODE_CACHE_PATH = /home/germanius/.config/Code - OSS/CachedData/64bbfbf67ada9953918d72e1df2f4d8e537d340e
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.T5FJT1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.A8EVT1
 # default
 .LOADED := 
 # default
@@ -70,8 +70,6 @@ MAKEFLAGS = pqrR
 DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
 # makefile
 CURDIR := /home/germanius/Documents/GitHub/anitest
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -86,12 +84,12 @@ WAYLAND_DISPLAY = wayland-0
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 XDG_SESSION_DESKTOP = gnome
-# makefile (from 'main.d', line 1)
-MAKEFILE_LIST := Makefile main.d
+# makefile (from 'schemehandler.d', line 1)
+MAKEFILE_LIST := Makefile OAuth.d main.d schemehandler.d
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 36640
+VSCODE_PID = 28102
 # environment
 XDG_SESSION_TYPE = wayland
 # makefile (from 'Makefile', line 11)
@@ -99,7 +97,7 @@ APPNAME = myapp
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/STUDYMACHINE-ARCH:@/tmp/.ICE-unix/1039,unix/STUDYMACHINE-ARCH:/tmp/.ICE-unix/1039
+SESSION_MANAGER = local/STUDYMACHINE-ARCH:@/tmp/.ICE-unix/1042,unix/STUDYMACHINE-ARCH:/tmp/.ICE-unix/1042
 # automatic
 *F = $(notdir $*)
 # environment
@@ -117,6 +115,8 @@ SHELL = /bin/sh
 # default
 MAKECMDGOALS := all
 # environment
+DOTNET_BUNDLE_EXTRACT_BASE_DIR = /home/germanius/.cache/dotnet_bundle_extract
+# environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
 SHLVL = 0
@@ -125,7 +125,7 @@ MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = /home/germanius/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+PATH = /home/germanius/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/home/germanius/.dotnet/tools:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
 # environment
 NIX_SSL_CERT_FILE = /etc/ssl/certs/ca-certificates.crt
 # default
@@ -135,7 +135,7 @@ MOTD_SHOWN = pam
 # automatic
 ^F = $(notdir $^)
 # environment
-INVOCATION_ID = 695363a2cf2544ec88e49f252c01764c
+INVOCATION_ID = 26d80c8108ae4973af2fc8a8303b3f12
 # environment
 USERNAME = germanius
 # environment
@@ -161,7 +161,7 @@ EXE = .exe
 # makefile
 .DEFAULT_GOAL := all
 # environment
-SYSTEMD_EXEC_PID = 1053
+SYSTEMD_EXEC_PID = 1056
 # makefile (from 'Makefile', line 21)
 RM = rm
 # environment
@@ -173,19 +173,19 @@ MAKE_VERSION := 4.3
 # environment
 NIX_PROFILES = /nix/var/nix/profiles/default /home/germanius/.nix-profile
 # makefile (from 'Makefile', line 8)
-LDFLAGS = -L./libs/ -lschemehandler -loauth -lcurl
+LDFLAGS = -lcurl
 # environment
-MANAGERPID = 948
+MANAGERPID = 955
 # makefile (from 'Makefile', line 24)
 DEL = del
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 36600
+GIO_LAUNCHED_DESKTOP_FILE_PID = 28062
 # environment
 _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-JOURNAL_STREAM = 8:23098
+JOURNAL_STREAM = 8:22187
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -195,7 +195,7 @@ HOME = /home/germanius
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-7ff62330-1.71.2-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-7ff62330-1.72.0-main.sock
 # makefile (from 'Makefile', line 13)
 SRCDIR = src
 # default
@@ -217,9 +217,11 @@ CC = gcc
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
+DOTNET_ROOT = /usr/share/dotnet
+# environment
 GDMSESSION = gnome
 # variable set hash-table stats:
-# Load=104/1024=10%, Rehash=0, Collisions=11/164=7%
+# Load=105/1024=10%, Rehash=0, Collisions=11/169=7%
 
 # Pattern-specific Variable Values
 
@@ -227,10 +229,10 @@ GDMSESSION = gnome
 
 # Directories
 
-# src (device 66310, inode 7342481): 3 files, no impossibilities.
-# . (device 66310, inode 7342425): 17 files, no impossibilities.
+# src (device 66310, inode 7342481): 5 files, no impossibilities.
+# . (device 66310, inode 7342425): 18 files, no impossibilities.
 
-# 20 files, no impossibilities in 2 directories.
+# 23 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -245,6 +247,13 @@ obj/%.o: src/%.c
 # 2 implicit rules, 0 (0.0%) terminal.
 # Files
 
+# Not a target:
+src/OAuth.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-10-13 22:36:13.642610446
+#  File has been updated.
+#  Successfully updated.
+
 cleandepw:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -253,32 +262,27 @@ cleandepw:
 #  recipe to execute (from 'Makefile', line 69):
 	$(DEL) $(DEP)
 
-obj/main.o: src/main.c src/main.c
+OAuth.d: src/OAuth.c
 #  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'main'
-#  Last modified 2022-09-29 11:20:10.15610063
+#  Implicit/static pattern stem: 'OAuth'
+#  Last modified 2022-10-13 22:37:15.872541904
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/main.o
-# automatic
-# * := main
-# automatic
-# < := src/main.c
-# automatic
-# + := src/main.c src/main.c
-# automatic
-# % := 
-# automatic
-# ^ := src/main.c
-# automatic
-# ? := src/main.c
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/15=13%
-#  recipe to execute (from 'Makefile', line 47):
-	$(CC) $(CXXFLAGS) -o $@ -c $<
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 40):
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
+
+obj/main.o: src/main.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/schemehandler.c:
+ 
+#  Implicit rule search has been done.
+#  Last modified 2022-10-13 22:36:46.391574369
+#  File has been updated.
+#  Successfully updated.
 
 cleandep:
 #  Phony target (prerequisite of .PHONY).
@@ -291,8 +295,7 @@ cleandep:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-09-21 11:48:01.395181903
+#  Last modified 2022-10-13 22:37:14.104543851
 #  File has been updated.
 #  Successfully updated.
 
@@ -307,9 +310,50 @@ clean:
 # Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-09-30 11:16:12.89990801
+#  Last modified 2022-10-12 20:49:30.672119955
 #  File has been updated.
 #  Successfully updated.
+
+obj/schemehandler.o: src/schemehandler.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/OAuth.o: src/OAuth.c src/OAuth.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'OAuth'
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := obj/OAuth.o
+# automatic
+# * := OAuth
+# automatic
+# < := src/OAuth.c
+# automatic
+# + := src/OAuth.c src/OAuth.c
+# automatic
+# % := 
+# automatic
+# ^ := src/OAuth.c
+# automatic
+# ? := src/OAuth.c
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=2/15=13%
+#  recipe to execute (from 'Makefile', line 47):
+	$(CC) $(CXXFLAGS) -o $@ -c $<
+
+schemehandler.d: src/schemehandler.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'schemehandler'
+#  Last modified 2022-10-13 22:37:15.842541937
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 40):
+	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
 
 # Not a target:
 .DEFAULT:
@@ -337,15 +381,15 @@ cleanw:
 main.d: src/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'main'
-#  Last modified 2022-09-30 13:33:31.83177281
+#  Last modified 2022-10-13 22:34:09.194747541
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 40):
 	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
 
-myapp: obj/main.o
+myapp: obj/OAuth.o obj/main.o obj/schemehandler.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-09-29 11:20:10.236100634
+#  Last modified 2022-10-13 19:18:50.242019753
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -359,19 +403,19 @@ myapp: obj/main.o
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=13/1024=1%, Rehash=0, Collisions=0/46=0%
+# Load=19/1024=2%, Rehash=0, Collisions=0/66=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 34 / storage = 267 B / avg = 7 B
-# current buf: size = 8162 B / used = 267 B / count = 34 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 43 / storage = 394 B / avg = 9 B
+# current buf: size = 8162 B / used = 394 B / count = 43 / avg = 9 B
 
-# strcache performance: lookups = 71 / hit rate = 52%
+# strcache performance: lookups = 92 / hit rate = 53%
 # hash-table stats:
-# Load=34/8192=0%, Rehash=0, Collisions=0/71=0%
-# Finished Make data base on Fri Sep 30 13:33:32 2022
+# Load=43/8192=1%, Rehash=0, Collisions=0/92=0%
+# Finished Make data base on Thu Oct 13 22:37:15 2022
 
  

@@ -1,7 +1,8 @@
-make all --dry-run --always-make --keep-going --print-directory
+make all --dry-run --keep-going --print-directory
 make: Entering directory '/home/germanius/Documents/GitHub/anitest'
  
-gcc -std=c99 -g -Wall -pedantic -I./include -D_XOPEN_SOURCE=700 -o obj/main.o -c src/main.c
-gcc -std=c99 -g -Wall -pedantic -I./include -D_XOPEN_SOURCE=700 -o myapp obj/main.o -L./libs/ -lschemehandler -loauth -lcurl
+gcc -std=c99 -g -Wall -pedantic -I./include -D_XOPEN_SOURCE=700 -o obj/OAuth.o -c src/OAuth.c
+gcc -std=c99 -g -Wall -pedantic -I./include -D_XOPEN_SOURCE=700 -o obj/schemehandler.o -c src/schemehandler.c
+gcc -std=c99 -g -Wall -pedantic -I./include -D_XOPEN_SOURCE=700 -o myapp obj/OAuth.o obj/main.o obj/schemehandler.o -lcurl
 make: Leaving directory '/home/germanius/Documents/GitHub/anitest'
  
