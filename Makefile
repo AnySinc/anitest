@@ -5,7 +5,7 @@
 # Compiler settings - Can be customized.
 CC = gcc
 CXXFLAGS = -std=c99 -g -Wall -pedantic -I./include -D_XOPEN_SOURCE=700
-LDFLAGS = -L./libs/ -lschemehandler -loauth -lcurl
+LDFLAGS = -lcurl
 
 # Makefile settings - Can be customized.
 APPNAME = myapp

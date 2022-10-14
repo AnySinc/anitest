@@ -26,7 +26,7 @@ void* handle_url_request(OAuth* oauth, const char* endpoint, const char* query) 
 
 int main(int argc, char* argv[]) {
     OAuth* oauth = oauth_create("./TEST.ini");
-    scheme_handler* handler = app_open(argc, argv, NULL, "TEST", handle_url_request, oauth);
+    scheme_handler* handler = app_open(argc, argv, NULL, "TEST", handle_url_request, NULL);
     if (handler) {
         srand(time_ms());
 
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 
         oauth_set_options(oauth, REQUEST_ASYNC | REQUEST_CACHE | REQUEST_AUTH);
 
-        response_data* response = oauth_request(oauth, GET, "https://api.myanimelist.net/v2/anime/30230");
+        response_data response = oauth_request(oauth, GET, "https://api.myanimelist.net/v2/anime/30230");
 
         getchar();
         oauth_delete(oauth);
