@@ -11,6 +11,7 @@ extern "C"
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "hash.h"
 
 #define map_calloc calloc
@@ -408,7 +409,7 @@ map_dec_strkey(s64, const char *, uint64_t)
 		}                                                              \
 	}                                                                      \
                                                                                \
-	static bool map_remap_##name(struct map_##name *m)               \
+	static bool map_remap_##name(struct map_##name *m, uint32_t* idx)          \
 	{                                                                      \
 		uint32_t pos, cap, mod;                                        \
 		struct map_item_##name *new;                                \
@@ -433,6 +434,7 @@ map_dec_strkey(s64, const char *, uint64_t)
 		for (uint32_t i = 0; i < m->cap; i++) {                        \
 			if (m->mem[i].key != 0) {                              				\
 				pos = map_hashof_##name(&m->mem[i]) & mod;  					\
+				if (i == idx) *idx = pos;										\
                                                                              	\
 				while (true) {                                 					\
 					if (new[pos].key == 0) {               						\
@@ -466,24 +468,12 @@ map_dec_strkey(s64, const char *, uint64_t)
                                                                     	\
 		m->oom = false;                                                	\
                                                                         \
-		if (!map_remap_##name(m)) {                                 	\
-			if (m->circular) {												\
-				ret = map_del_##name(m, m->head->entry->key);				\
-				map_put_##name(m, key, value);								\
-				return ret;													\
-			} else {														\
-				m->oom = true;                                         		\
-				return (V) empty_value;                             	\
-			}															\
-		}                                                              	\
-                                                                        \
 		if (key == 0) {                                                	\
-			ret = (m->used) ? m->mem[-1].value : (V) empty_value;    \
+			ret = (m->used) ? m->mem[-1].value : (V) empty_value;    			\
 			m->found = m->used;                                    \
 			m->size += !m->used;                                   \
 			m->used = true;                                        \
 			map_assign_##name(-1, key, value, h, m);     			\
-																	\
 			return ret;                                            \
 		}                                                              \
                                                                                \
@@ -492,18 +482,28 @@ map_dec_strkey(s64, const char *, uint64_t)
 		pos = h & (mod);                                               \
                                                                                \
 		while (true) {                                                 \
-			if (m->mem[pos].key == 0) {                            		\
-				m->size++;                                     			\
-			} else if (!map_cmp_##name(&m->mem[pos], key, h)) { 		\
-				pos = (pos + 1) & (mod);                       			\
-				continue;                                      			\
+			if (m->mem[pos].key == 0 || map_cmp_##name(&m->mem[pos], key, h)) { 		\
+				m->found = m->mem[pos].key != 0;                       		\
+				if (!m->found && !map_remap_##name(m, &pos)) {             	\
+					if (m->circular) {										\
+						ret = map_del_##name(m, m->head->entry->key);		\
+						m->found = false;									\
+					} else {												\
+						m->oom = true;                                      \
+						return (V) empty_value;                             \
+					}														\
+				} else if (m->found) {										\
+					ret = m->mem[pos].value;								\
+				} else if (mod != (m->cap - 1)) {								\
+					mod = m->cap - 1; 										\
+					pos = h & (mod); 										\
+					continue;												\
+				}															\
+				m->size += !m->found;										\
+				map_assign_##name(pos, key, value, h, m);     				\
+				return ret;                                            		\
 			}                                                      		\
-                                                                        \
-			m->found = m->mem[pos].key != 0;                       		\
-			ret = m->found ? m->mem[pos].value : (V) empty_value;\
-			map_assign_##name(pos, key, value, h, m);     				\
-                                                                        \
-			return ret;                                            		\
+            pos = (pos + 1) & (mod);                       			\
 		}                                                              	\
 	}                                                                  	\
                                                                         \
@@ -523,17 +523,15 @@ map_dec_strkey(s64, const char *, uint64_t)
 		pos = h & mod;                                                 \
                                                                                \
 		while (true) {                                                 \
-			if (m->mem[pos].key == 0) {                            \
-				m->found = false;                              \
-				return (V) empty_value;                  \
+			if (m->mem[pos].key == 0) {                            		\
+				m->found = false;                              			\
+				return (V) empty_value;                  				\
 			} else if (!map_cmp_##name(&m->mem[pos], key, h)) { \
-				pos = (pos + 1) & (mod);                       \
-				continue;                                      \
+				m->found = true;                                       \
+				map_refresh_or_add_##name(m, true, &m->list[pos]);		\
+				return m->mem[pos].value;                              \
 			}                                                      \
-                                                                               \
-			m->found = true;                                       \
-			map_refresh_or_add_##name(m, true, &m->list[pos]);		\
-			return m->mem[pos].value;                              \
+            pos = (pos + 1) & (mod);                       			\
 		}                                                              \
 	}                                                                      \
                                                                                \
@@ -551,8 +549,10 @@ map_dec_strkey(s64, const char *, uint64_t)
 																				\
 			if (m->list[-1].prev)												\
 				m->list[-1].prev->next = m->list[-1].next;						\
+			else m->head = m->list[-1].next;									\
 			if (m->list[-1].next)												\
 				m->list[-1].next->prev = m->list[-1].prev;						\
+			else m->tail = m->list[-1].prev;									\
 			m->list[-1].entry = 0;												\
                                                                                \
 			return m->found ? m->mem[-1].value : (V) empty_value;                \
@@ -577,8 +577,10 @@ map_dec_strkey(s64, const char *, uint64_t)
 			m->mem[pos].key = 0;                                   \
 			if (m->list[pos].prev)												\
 				m->list[pos].prev->next = m->list[pos].next;						\
+			else m->head = m->list[pos].next;									\
 			if (m->list[pos].next)												\
 				m->list[pos].next->prev = m->list[pos].prev;						\
+			else m->tail = m->list[pos].prev;									\
 			m->list[pos].entry = 0;											\
 			prev = pos;                                            \
 			it = pos;                                              \
@@ -602,8 +604,10 @@ map_dec_strkey(s64, const char *, uint64_t)
 					m->list[prev].next = m->list[it].next;								\
 					if (m->list[it].prev)												\
 						m->list[it].prev->next = &m->list[prev];						\
+					else m->head = &m->list[prev];									\
 					if (m->list[it].next)												\
 						m->list[it].next->prev = &m->list[prev];					\
+					else m->tail = &m->list[prev];									\
 					m->list[it].entry = 0;											\
 																					\
 					prev = it;                             \

@@ -26,7 +26,7 @@ void* handle_url_request(OAuth* oauth, const char* endpoint, const char* query) 
 
 int main(int argc, char* argv[]) {
     OAuth* oauth = oauth_create("./TEST.ini");
-    scheme_handler* handler = app_open(argc, argv, NULL, "TEST", handle_url_request, oauth);
+    scheme_handler* handler = app_open(argc, argv, NULL, "TEST", handle_url_request, NULL);
     if (handler) {
         srand(time_ms());
 

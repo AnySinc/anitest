@@ -175,7 +175,7 @@ OAuth* oauth_create(const char* config_file) {
     oauth->authed = false;
     oauth->request_run = false;
     map_init_request(&oauth->request_queue, 0, 0);
-    map_init_request(&oauth->cache, 0, 0);
+    map_init_response(&oauth->cache, 0, 0);
     map_set_circular(&oauth->cache, true);
     map_set_refresh(&oauth->cache, true);
     map_set_refresh(&oauth->request_queue, true);
@@ -385,10 +385,8 @@ response_data oauth_request(OAuth* oauth, REQUEST method, const char* endpoint) 
     str_append_fmt(&rq_data.id, "/%s/%s", REQUEST_STRING[method], endpoint);
     if (rq_data.data) str_append_fmt(&rq_data.id, "?%s", rq_data.data);
 
-    response_data response;
-    if (BIT(options, REQUEST_CACHE) && !BIT(options, REQUEST_ASYNC) 
-        && ((response = map_get_response(&oauth->cache, rq_data.id)).data)) 
-    {
+    response_data response = map_get_response(&oauth->cache, rq_data.id);
+    if (BIT(options, REQUEST_CACHE) && !BIT(options, REQUEST_ASYNC) && (response.data)) {
         if (!map_get_request(&oauth->request_queue, rq_data.id).id)
             map_put_request(&oauth->request_queue, rq_data.id, rq_data);
     } else  {
